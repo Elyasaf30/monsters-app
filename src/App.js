@@ -1,16 +1,18 @@
 import React from "react";
 
-import './App.css'
+
 
 import { CardList } from './components/card-list/card-list.component';
 import { SearchBox } from './components/searchBox/search-box.component'
+import './App.styles.css'
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
       monsters: [],
-      searchBox: ''
+      searchBox: '',
+      loading: true
     };
   }
 
@@ -18,7 +20,7 @@ class App extends React.Component {
     fetch("https://jsonplaceholder.typicode.com/users")
       .then(res => res.json())
       .then(users =>
-        this.setState({ monsters: users }, () => console.log(this.state))
+        this.setState({ monsters: users, loading: false })
       );
   }
 
@@ -27,18 +29,26 @@ class App extends React.Component {
   }
 
   render() {
-    const { monsters, searchBox } = this.state;
+    const { monsters, searchBox, loading } = this.state;
     const filterdMonsters = monsters.filter(monster => monster.name.toLowerCase().includes(searchBox.toLocaleLowerCase()))
     return (
       <div className="App">
-        <h1>Monster legend</h1>
-        <SearchBox
-          placeholder="Search monster"
-          handleChange={this.handleChange} />
-        <CardList monsters={filterdMonsters} />
+        {loading === false ? (
+          <div>
+            <h1>Monster legend</h1>
+            <SearchBox
+              placeholder="Search monster"
+              handleChange={this.handleChange} />
+            <CardList monsters={filterdMonsters} />
+          </div>
+        ) : (
+            <h2>Loding Monsters...</h2>
+          )}
       </div>
     );
   }
 }
 
 export default App;
+
+
