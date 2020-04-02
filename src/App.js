@@ -42,7 +42,7 @@ class App extends React.Component {
             <CardList monsters={filterdMonsters} />
           </div>
         ) : (
-            <h2>Loding Monsters...</h2>
+            <h1>Loding Monsters...</h1>
           )}
       </div>
     );
