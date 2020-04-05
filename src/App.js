@@ -17,11 +17,13 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then(res => res.json())
-      .then(users =>
-        this.setState({ monsters: users, loading: false })
-      );
+    setTimeout(() => {
+      fetch("https://jsonplaceholder.typicode.com/users")
+        .then(res => res.json())
+        .then(users =>
+          this.setState({ monsters: users, loading: false })
+        );
+    }, 1000);
   }
 
   handleChange = (e) => {
